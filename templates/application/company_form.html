@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Company Info {% endblock %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">  <!-- Adjust width here -->
+        
+            <form method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
+                {% csrf_token %}
+                <h4 class="mb-4 text-primary text-center">Company Information</h4>
+
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{field.id_for_label}}" class="form-label">{{field.label_tag}}</label>
+                        {{field}}
+
+                        {% for error in field.errors %}
+                            <div class="text-danger">{{error}}</div>
+                        {% endfor %}
+
+                    </div>
+
+                {% endfor %}
+
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Save Company Details</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

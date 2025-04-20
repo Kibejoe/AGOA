@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block title %} Employee Info {% endblock%}
+
+{% block content %}
+<div class="container my-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">  <!-- Adjust width here -->
+            <h2 class="mb-4 text-center text-primary">Staff Information</h2>
+
+            <div class="accordion" id="staffAccordion">
+        
+                <!-- Office & Admin -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingAdmin">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdmin">
+                            Office & Administrative Staff + Directors
+                        </button>
+                    </h2>
+                    <div id="collapseAdmin" class="accordion-collapse collapse show" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Administrative Staff</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Directors</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Miscellaneous -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMisc">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMisc">
+                            Miscellaneous
+                        </button>
+                    </h2>
+                    <div id="collapseMisc" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Support Staff</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Other Miscellaneous</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Cutting Department -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingCutting">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCutting">
+                            Cutting Department
+                        </button>
+                    </h2>
+                    <div id="collapseCutting" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Cutters</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Spreaders</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Supervisors</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Assistants</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Helpers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Add more accordion items for other departments like Production Lines, Finishing, Sampling, etc., in similar structure -->
+                <!-- Production Lines -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingProduction">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProduction">
+                            Production Lines
+                        </button>
+                    </h2>
+                    <div id="collapseProduction" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Supervisors</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Stitchers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Line Helpers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Packers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Finishing Department -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinishing">
+                            Finishing Department
+                        </button>
+                    </h2>
+                    <div id="collapseFinishing" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Supervisors</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Stichers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Checkers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Helpers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Pressing</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Packing</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSampling">
+                            Sampling Department
+                        </button>
+                    </h2>
+                    <div id="collapseSampling" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Pattern makers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Stichers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Supervisors</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Quality Controllers</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                    <tr><td>Final Inspectors</td><td><input type="number" class="form-control" min="0"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Others -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOthers">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOthers">
+                            Others (Specify)
+                        </button>
+                    </h2>
+                    <div id="collapseOthers" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                        <div class="accordion-body">
+                            <table class="table">
+                                <thead class="table-light">
+                                    <tr><th>Position</th><th>No.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control" placeholder="Specify position"></td>
+                                        <td><input type="number" class="form-control" min="0"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control" placeholder="Specify position"></td>
+                                        <td><input type="number" class="form-control" min="0"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        
+            <div class="mt-4 text-end">
+                <button class="btn btn-success">Save Staff Information</button>
+            </div>
+        
+
+        </div>
+    
+    </div>
+
+</div>
+
+{% endblock %}

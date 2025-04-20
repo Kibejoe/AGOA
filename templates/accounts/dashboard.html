@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section-content padding-y bg-light">
+
+    {% include 'includes/alerts.html' %}
+
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <aside class="col-md-3">
+                <div class="d-flex flex-column p-3 bg-white shadow-sm rounded h-100">
+                    <h5 class="mb-4 text-primary">Dashboard</h5>
+                    <ul class="nav nav-pills flex-column gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="bi bi-clock-history me-2"></i> My Application History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#companyProfileMenu" role="button" aria-expanded="false" aria-controls="companyProfileMenu">
+                                <span><i class="bi bi-building me-2"></i> Company Profile</span>
+                                <i class="bi bi-chevron-down small"></i>
+                            </a>
+                            <div class="collapse ps-4" id="companyProfileMenu">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="bi bi-info-circle me-2"></i> Company Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="bi bi-box-seam me-2"></i> Products</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Employees</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="bi bi-gear me-2"></i> Machinery</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#certificateApplicationMenu" role="button" aria-expanded="false" aria-controls="certificateApplicationMenu">
+                                <span><i class="bi bi-journal-text me-2"></i> Certificate Application</span>
+                                <i class="bi bi-chevron-down small"></i>
+                            </a>
+                            <div class="collapse ps-4" id="certificateApplicationMenu">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'company-form' %}"><i class="bi bi-pencil-square me-2"></i> Company Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'product-form' %}"><i class="bi bi-box-seam me-2"></i> Product Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'employee-form' %}"><i class="bi bi-people me-2"></i> Employee Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'machinery-form' %}"><i class="bi bi-gear me-2"></i> Machinery Details</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-file-earmark-check me-2"></i> My Certificates
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-person-circle me-2"></i> My Profile
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </aside>
+            
+            <!-- Main Dashboard Area -->
+            <main class="col-md-9">
+                <div class="row g-4">
+
+                    <!-- Dashboard Card 1 -->
+                    <div class="col-md-6">
+                        <div class="card text-center shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Pending Applications</h5>
+                                <p class="card-text display-6 fw-bold text-primary">0</p> <!-- Replace with dynamic variable later -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Card 2 -->
+                    <div class="col-md-6">
+                        <div class="card text-center shadow-sm">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more cards as needed -->
+                    
+                </div> <!-- row -->
+            </main>
+        </div> <!-- row -->
+    </div> <!-- container -->
+
+</section>
+{% endblock %}
+
+{% block script_files %}
+<script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}
