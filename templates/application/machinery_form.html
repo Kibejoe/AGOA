@@ -6,192 +6,159 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">  <!-- Adjust width here -->
 
-            <h2 class="mb-4 text-center text-primary">Machinery Inventory</h2>
+            <h2 class="mb-4 text-center text-primary">Machinery Details</h2>
 
-            <div class="accordion" id="machineryAccordion">
-        
-                <!-- Example Section Template -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingCutting">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cuttingSection" aria-expanded="true" aria-controls="cuttingSection">
-                            Cutting Section
-                        </button>
-                    </h2>
-                    <div id="cuttingSection" class="accordion-collapse collapse show" aria-labelledby="headingCutting" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead>
-                                    <tr><th>Machine Type</th><th>No.</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Cutting machines</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Fabric notcher</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Band cutting</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Edge cutting</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Pattern cutter</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="stitchingHeading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stitchingSection" aria-expanded="false" aria-controls="stitchingSection">
-                            Stitching Section
-                        </button>
-                    </h2>
-                    <div id="stitchingSection" class="accordion-collapse collapse" aria-labelledby="stitchingHeading" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead>
-                                    <tr><th>Machine Type</th><th>No.</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Single Needle</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>SN-Computer</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Double Needle</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Bar Tack</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <!-- Add more rows as needed -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Laundry Section -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="laundryHeading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#laundrySection" aria-expanded="false" aria-controls="laundrySection">
-                            Laundry Section
-                        </button>
-                    </h2>
-                    <div id="laundrySection" class="accordion-collapse collapse" aria-labelledby="laundryHeading" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead><tr><th>Machine Type</th><th>No.</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Industrial Washing machine</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Air compressors</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <!-- Add more rows as needed -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Finishing Section -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="finishingHeading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishingSection" aria-expanded="false" aria-controls="finishingSection">
-                            Finishing Section
-                        </button>
-                    </h2>
-                    <div id="finishingSection" class="accordion-collapse collapse" aria-labelledby="finishingHeading" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead><tr><th>Machine Type</th><th>No.</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Manual presser</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><th colspan="2">Iron Type</th></tr>
-                                    <tr><td>Steam</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Ordinary</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Utilities Section -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="utilitiesHeading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#utilitiesSection" aria-expanded="false" aria-controls="utilitiesSection">
-                            Utilities
-                        </button>
-                    </h2>
-                    <div id="utilitiesSection" class="accordion-collapse collapse" aria-labelledby="utilitiesHeading" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead><tr><th>Machine Type</th><th>No.</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Fuel pump</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>Generators</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Health Facility Section -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="healthHeading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#healthSection" aria-expanded="false" aria-controls="healthSection">
-                            Health Facility (In-house Clinic)
-                        </button>
-                    </h2>
-                    <div id="healthSection" class="accordion-collapse collapse" aria-labelledby="healthHeading" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead><tr><th>Equipment Type</th><th>No.</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Medical Equipment</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                    <tr><td>First Aid Kits</td><td><input type="number" class="form-control" min="0"></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Others Section -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="othersHeading">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#othersSection" aria-expanded="false" aria-controls="othersSection">
-                            Others (Specify)
-                        </button>
-                    </h2>
-                    <div id="othersSection" class="accordion-collapse collapse" aria-labelledby="othersHeading" data-bs-parent="#machineryAccordion">
-                        <div class="accordion-body">
-                            <table class="table">
-                                <thead><tr><th>Machine Type</th><th>No.</th></tr></thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" class="form-control" placeholder="Specify machine type"></td>
-                                        <td><input type="number" class="form-control" min="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" placeholder="Specify machine type"></td>
-                                        <td><input type="number" class="form-control" min="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><button class="btn btn-sm btn-outline-primary">+ Add More</button></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-        
-            </div>
-        
+            <form action="{% url 'machinery-form' %}" method="post">
 
+                {% csrf_token %}
+
+
+                <div class="accordion" id="machineryAccordion">
         
-                <!-- Add More Sections Here Following Same Accordion Structure -->
-        
-                <!-- Total Machines -->
-                <div class="card mt-4">
-                    <div class="card-body bg-light">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Total Machines:</h5>
-                            <span id="totalMachines" class="h5">0</span>
-                        </div>
-                        <div class="d-grid gap-2 mt-3">
-                            <button class="btn btn-success" type="button">Save Machinery Information</button>
+                    <!-- Example Section Template -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCutting">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cuttingSection" aria-expanded="true" aria-controls="cuttingSection">
+                                Cutting Section
+                            </button>
+                        </h2>
+                        <div id="cuttingSection" class="accordion-collapse collapse show" aria-labelledby="headingCutting" data-bs-parent="#machineryAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr><th>Machine Type</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{ form.cutting_machines.label_tag }}</td><td>{{ form.cutting_machines }}</td></tr>
+                                        <tr><td>{{ form.fabric_notcher.label_tag }}</td><td>{{ form.fabric_notcher }}</td></tr>
+                                        <tr><td>{{ form.band_cutting.label_tag }}</td><td>{{ form.band_cutting }}</td></tr>
+                                        <tr><td>{{ form.edge_cutting.label_tag }}</td><td>{{ form.edge_cutting }}</td></tr>
+                                        <tr><td>{{ form.pattern_cutter.label_tag }}</td><td>{{ form.pattern_cutter }}</td></tr>
+                            
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="stitchingHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stitchingSection" aria-expanded="false" aria-controls="stitchingSection">
+                                Stitching Section
+                            </button>
+                        </h2>
+                        <div id="stitchingSection" class="accordion-collapse collapse" aria-labelledby="stitchingHeading" data-bs-parent="#machineryAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr><th>Machine Type</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{ form.single_needle.label_tag }}</td><td>{{ form.single_needle }}</td></tr>
+                                        <tr><td>{{ form.sn_computer.label_tag }}</td><td>{{ form.sn_computer }}</td></tr>
+                                        <tr><td>{{ form.double_needle.label_tag }}</td><td>{{ form.double_needle }}</td></tr>
+                                        <tr><td>{{ form.bar_tack.label_tag }}</td><td>{{ form.bar_tack }}</td></tr>
+                                        <tr><td>{{ form.overlock_3th.label_tag }}</td><td>{{ form.overlock_3th }}</td></tr>
+                                        <tr><td>{{ form.overlock_4th.label_tag }}</td><td>{{ form.overlock_4th }}</td></tr>
+                                        <tr><td>{{ form.overlock_5th.label_tag }}</td><td>{{ form.overlock_5th }}</td></tr>
+                                        <tr><td>{{ form.waist_band_machines.label_tag }}</td><td>{{ form.waist_band_machines }}</td></tr>
+                                        <tr><td>{{ form.special_loops.label_tag }}</td><td>{{ form.special_loops }}</td></tr>
+                                        <tr><td>{{ form.feed_of_arms.label_tag }}</td><td>{{ form.feed_of_arms }}</td></tr>
+                                        <tr><td>{{ form.collar_turners.label_tag }}</td><td>{{ form.collar_turners }}</td></tr>
+                                        <tr><td>{{ form.button_holing.label_tag }}</td><td>{{ form.button_holing }}</td></tr>
+                                        <tr><td>{{ form.button_attach.label_tag }}</td><td>{{ form.button_attach }}</td></tr>
+                                        <tr><td>{{ form.computer_welt_machine.label_tag }}</td><td>{{ form.computer_welt_machine }}</td></tr>
+                                        <tr><td>{{ form.computer_button_holing.label_tag }}</td><td>{{ form.computer_button_holing }}</td></tr>
+                                        <tr><td>{{ form.eye_let_button_holing.label_tag }}</td><td>{{ form.eye_let_button_holing }}</td></tr>
+                                        <tr><td>{{ form.snap_buttoning.label_tag }}</td><td>{{ form.snap_buttoning }}</td></tr>
+                                        <tr><td>{{ form.fusing_machines.label_tag }}</td><td>{{ form.fusing_machines }}</td></tr>
+                                        <tr><td>{{ form.blind_stitch_hemming.label_tag }}</td><td>{{ form.blind_stitch_hemming }}</td></tr>
+                                        <tr><td>{{ form.fabric_inspector.label_tag }}</td><td>{{ form.fabric_inspector }}</td></tr>
+                                        <tr><td>{{ form.thread_suckers.label_tag }}</td><td>{{ form.thread_suckers }}</td></tr>
+                                        <tr><td>{{ form.weighing_scales.label_tag }}</td><td>{{ form.weighing_scales }}</td></tr>
+                                        <tr><td>{{ form.water_feed_pump.label_tag }}</td><td>{{ form.water_feed_pump }}</td></tr>
+                                        <tr><td>{{ form.strapping_machines.label_tag }}</td><td>{{ form.strapping_machines }}</td></tr>
+                                        <tr><td>{{ form.thread_winders.label_tag }}</td><td>{{ form.thread_winders }}</td></tr>
+                                        <tr><td>{{ form.clocking_machines.label_tag }}</td><td>{{ form.clocking_machines }}</td></tr>
+                            
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Laundry Section -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="laundryHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#laundrySection" aria-expanded="false" aria-controls="laundrySection">
+                                Laundry Section
+                            </button>
+                        </h2>
+                        <div id="laundrySection" class="accordion-collapse collapse" aria-labelledby="laundryHeading" data-bs-parent="#machineryAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead><tr><th>Machine Type</th><th>No.</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>{{ form.industrial_washing_machine.label_tag }}</td><td>{{ form.industrial_washing_machine }}</td></tr>
+                                        <tr><td>{{ form.air_compressors.label_tag }}</td><td>{{ form.air_compressors }}</td></tr>
+                                        <tr><td>{{ form.sample_washers.label_tag }}</td><td>{{ form.sample_washers }}</td></tr>
+                                        <tr><td>{{ form.electric_heated_dryers.label_tag }}</td><td>{{ form.electric_heated_dryers }}</td></tr>
+                                        <tr><td>{{ form.steam_heated_dryers.label_tag }}</td><td>{{ form.steam_heated_dryers }}</td></tr>
+                                        <tr><td>{{ form.steam_boilers.label_tag }}</td><td>{{ form.steam_boilers }}</td></tr>
+                                        <tr><td>{{ form.hydro_extractors.label_tag }}</td><td>{{ form.hydro_extractors }}</td></tr>                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Finishing Section -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="finishingHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#finishingSection" aria-expanded="false" aria-controls="finishingSection">
+                                Finishing Section
+                            </button>
+                        </h2>
+                        <div id="finishingSection" class="accordion-collapse collapse" aria-labelledby="finishingHeading" data-bs-parent="#machineryAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead><tr><th>Machine Type</th><th>No.</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>{{ form.manual_presser.label_tag }}</td><td>{{ form.manual_presser }}</td></tr>
+                                        <tr><td>{{ form.iron_steam.label_tag }}</td><td>{{ form.iron_steam }}</td></tr>
+                                        <tr><td>{{ form.iron_ordinary.label_tag }}</td><td>{{ form.iron_ordinary }}</td></tr>
+                                        <tr><td>{{ form.fuel_pump.label_tag }}</td><td>{{ form.fuel_pump }}</td></tr>
+                                        <tr><td>{{ form.generators.label_tag }}</td><td>{{ form.generators }}</td></tr>
+                                        <tr><td>{{ form.others_specify.label_tag }}</td><td>{{ form.others_specify }}</td></tr>
+                            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="healthHeader">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#healthCollapse">
+                            Health Facility
+                          </button>
+                        </h2>
+                        <div id="healthCollapse" class="accordion-collapse collapse" data-bs-parent="#equipmentAccordion">
+                          <div class="accordion-body">
+                            <table class="table">
+                              <tr><td>{{ form.inhouse_clinic.label_tag }}</td><td>{{ form.inhouse_clinic }}</td></tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                        
                 </div>
-            </div>
-        
 
+                <div class="d-grid gap-2 mt-3">
+                    <button class="btn btn-success">Save Machinery Information</button>
+                </div>
+            
+            </form>
         </div>
     </div>
 

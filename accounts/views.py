@@ -11,7 +11,7 @@ from django.conf import settings
 
 from .forms import RegistrationForm, LoginForm
 from django.contrib import messages
-
+from application.models import CompanyDetails, Product, Employee, Machinery
 
 
 CustomUser = get_user_model()
@@ -109,4 +109,5 @@ def logout_view(request):
 
 @login_required
 def dashboard(request):
+
     return render(request, 'accounts/dashboard.html')

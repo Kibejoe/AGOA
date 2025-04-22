@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from .models import CompanyDetails
+from .models import CompanyDetails, Employee
 from .forms import CompanyForm, ProductForm, MachineForm, EmployeeForm
 from django.contrib import messages
 
@@ -55,7 +55,42 @@ def product_form(request):
     return render(request, 'application/product_form.html', context)
 
 def employee_form(request):
-    return render(request, 'application/employee_form.html')
+
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+
+        if form.is_valid():
+            employee_form = form.save(commit=False)
+            company = CompanyDetails.objects.get(user=request.user)
+            employee_form.company = company
+            employee_form.save()
+
+            return redirect('machinery-form')
+        
+    else:
+        form = EmployeeForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'application/employee_form.html', context)
 
 def machinery_form(request):
-    return render(request, 'application/machinery_form.html')
+    if request.method == 'POST':
+        form = MachineForm(request.POST)
+        if form.is_valid():
+            machinery_form = form.save(commit=False)
+            company = CompanyDetails.objects.get(user=request.user)
+            machinery_form.company = company
+            machinery_form.save()
+
+            return redirect('machinery-form')
+        
+    else:
+        form = MachineForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'application/machinery_form.html', context)
