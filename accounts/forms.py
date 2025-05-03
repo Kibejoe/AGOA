@@ -41,7 +41,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
-        if CustomUser.objects.filter(email=email).exists():
+        if CustomUser.objects.get(email=email).exists():
             raise ValidationError('User with this email already exists')
         
         return email
@@ -53,3 +53,37 @@ class LoginForm(forms.Form):
         "placeholder":"Input Password"
     }))
 
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control mt-3',
+            'placeholder': 'Input your registered email'
+        })
+    )
+
+
+class ResetPasswordForm(forms.Form):
+    new_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Enter new password',
+        'class': 'form-control'
+    }))
+
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Confirm password',
+        'class': 'form-control'
+    }))
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        new_password = cleaned_data.get('new_password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if new_password != confirm_password:
+            raise ValueError('Passwords do not match')
+        
+
+        
+    

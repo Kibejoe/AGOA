@@ -9,9 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 from django.contrib import messages
-from application.models import CompanyDetails, Product, Employee, Machinery
+from application.models import CompanyDetails,AGOAApplication
 
 
 CustomUser = get_user_model()
@@ -107,7 +107,97 @@ def logout_view(request):
     return redirect('login')
 
 
+def forgot_password(request):
+
+    if request.method == 'POST':
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            user = CustomUser.objects.get(email=email)
+
+            if user:
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                token = default_token_generator.make_token(user)
+                reset_url = request.build_absolute_uri(reverse('reset-password', args=[uid, token]))
+
+                send_mail(
+                    subject='Password Reset Link',
+                    message=render_to_string('accounts/password_reset_email.html',{
+                            'user': user,
+                            'reset_url': reset_url
+                        }
+                    ),
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[email]
+                )
+
+                messages.success(request, 'Reset password from your email')
+                return redirect('forgot-password')
+
+            else:
+                messages.error(request, 'User with that email does not exist')
+                return redirect('forgot-password')
+            
+
+    else:
+        form = ForgotPasswordForm()
+
+    return render(request, 'accounts/forgot_password.html', {'form': form})
+
+def reset_password(request, uidb64, token):
+    try:
+        uid = force_bytes(urlsafe_base64_decode(uidb64))
+        user = CustomUser.objects.get(pk=uid)
+    except CustomUser.DoesNotExist:
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            form = ResetPasswordForm(request.POST)
+
+            if form.is_valid():
+                password = form.cleaned_data.get('password')
+                user.set_password(password)
+                user.save()
+                messages.success(request, 'Password reset successfully')
+                return redirect('login')
+        
+        else:
+            form = ResetPasswordForm()
+
+        context = {
+            'form':form, 
+            'uidb64':uidb64, 
+            'token': token
+        }
+
+        return render(request, 'accounts/reset_password.html', context)
+
+    else:
+        messages.error(request, 'Reset link expired')
+        return redirect('forgot-password')
+        
+
+
 @login_required
 def dashboard(request):
 
-    return render(request, 'accounts/dashboard.html')
+    try:
+
+        company = CompanyDetails.objects.get(user=request.user)
+        pending_count = AGOAApplication.objects.filter(company=company, status='pending').count()
+        application = AGOAApplication.objects.filter(company=company)
+
+    except CompanyDetails.DoesNotExist:
+        company = None
+        pending_count = 0
+        application = None
+
+    context = {
+        'pending_count': pending_count,
+        'application': application
+    }
+
+    return render(request, 'accounts/dashboard.html', context)
+
+

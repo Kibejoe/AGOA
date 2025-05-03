@@ -194,12 +194,12 @@ class AGOAApplication(models.Model):
         ('pending', 'Pending Review'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
-        ('more_info', 'Needs More Information'),
     ]
 
     company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='applications', null=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    certificate_file = models.FileField(upload_to='media/certificates',blank=True, null=True)
 
     class Meta:
         verbose_name='AGOAApplication'

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Review Application{% endblock %}
+{% block content %}
+<div class="container mt-4" style="max-width: 800px;">
+
+    {% include 'includes/alerts.html' %}
+
+
+    {% if missing_sections %}
+        <div class="alert alert-warning mt-3">
+            <strong>Incomplete Application!</strong><br>
+            You still need to fill the following sections:
+            <ul>
+                {% for section in missing_sections %}
+                    <li>{{ section }}</li>
+                {% endfor %}
+            </ul>
+            <p class="mt-2">Please complete them before submitting your application.</p>
+        </div>
+    {% endif %}
+    
+    {% if application_exists %}
+        <h2 class="text-center">You already applied. Please await Inspection</h2>
+    {% else %}
+        <h2 class="text-center">Review Submitted Details Before Applying</h2>
+        <h3 class="text-center mt-5 text-primary">Company Summary</h3>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>KRA PIN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.address }}</td>
+                    <td>{{ company.kra_pin }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="text-center mt-5 text-primary">Product Summary</h3>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Production Quantity (pcs/month)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.production_quantity_per_month }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="text-center mt-5 text-primary">Machinery Summary</h3>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Cutting Machines</th>
+                    <!-- Add more machinery headers if needed -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ machinery.cutting_machines }}</td>
+                    <!-- Add more machinery values if needed -->
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="text-center mt-5 text-primary">Employees Summary</h3>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Administrative Staff</th>
+                    <!-- Add more employee headers if needed -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ employee.administrative_staff }}</td>
+                    <!-- Add more employee values if needed -->
+                </tr>
+            </tbody>
+        </table>
+
+        <form method="post" action="{% url 'review-application' %}" class="mt-4">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Confirm & Submit Application</button>
+        </form>
+
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block script_files %}
+<script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}

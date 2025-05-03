@@ -1,8 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from .models import CompanyDetails, Employee
+from .models import CompanyDetails, Product, Machinery, Employee, AGOAApplication
 from .forms import CompanyForm, ProductForm, MachineForm, EmployeeForm
 from django.contrib import messages
+from django.template.loader import render_to_string
+from weasyprint import HTML, CSS
+from django.http import HttpResponse
+import os
+from django.conf import settings
+from django.contrib.staticfiles import finders
+
 
 CustomUser = get_user_model
 
@@ -16,6 +23,7 @@ def company_form(request):
             company_form = form.save(commit=False)
             company_form.user = request.user
             company_form.save()
+            messages.success('Company details filled in successfully')
             return redirect('product-form')
         
     else:
@@ -31,8 +39,14 @@ def product_form(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
+
+            try:
+                company = CompanyDetails.objects.get(user=request.user)
+            except CompanyDetails.DoesNotExist:
+                messages.error(request, 'Fill in Company Details First')
+                return render(request, 'application/product_form.html', {'form': form})
+
             product_form = form.save(commit=False)
-            company = CompanyDetails.objects.get(user=request.user)
             product_form.company = company
             product_form.save()
 
@@ -60,10 +74,17 @@ def employee_form(request):
         form = EmployeeForm(request.POST)
 
         if form.is_valid():
+            try:
+                company = CompanyDetails.objects.get(user=request.user)
+            except CompanyDetails.DoesNotExist:
+                messages.error(request, 'Fill in Company Details First')
+                return render(request, 'application/employee_form.html', {'form': form})
+            
             employee_form = form.save(commit=False)
-            company = CompanyDetails.objects.get(user=request.user)
             employee_form.company = company
             employee_form.save()
+
+            messages.success(request, 'Staff details filled in successfully')
 
             return redirect('machinery-form')
         
@@ -80,10 +101,16 @@ def machinery_form(request):
     if request.method == 'POST':
         form = MachineForm(request.POST)
         if form.is_valid():
+            try:
+                company = CompanyDetails.objects.get(user=request.user)
+            except CompanyDetails.DoesNotExist:
+                messages.error(request, 'Fill in Company Details First')
+                return render(request, 'application/machinery_form.html')
             machinery_form = form.save(commit=False)
-            company = CompanyDetails.objects.get(user=request.user)
             machinery_form.company = company
             machinery_form.save()
+
+            messages.success(request, 'Machinery details filled successfully')
 
             return redirect('machinery-form')
         
@@ -94,3 +121,86 @@ def machinery_form(request):
         'form': form
     }
     return render(request, 'application/machinery_form.html', context)
+
+def review_application(request):
+
+    company = CompanyDetails.objects.get(user=request.user)
+
+    try:
+        product = Product.objects.get(company=company)
+    except Product.DoesNotExist:
+        product = None
+
+    try:
+        machinery = Machinery.objects.get(company=company)
+    except Machinery.DoesNotExist:
+        machinery = None
+
+    try:
+        employee = Employee.objects.get(company=company)
+    except Employee.DoesNotExist:
+        employee = None
+
+    missing_sections = []
+
+    if not company:
+        missing_sections.append('Company Details')
+    if not product:
+        missing_sections.append('Product Details')
+    if not machinery:
+        missing_sections.append('Machinery Details')
+    if not employee:
+        missing_sections.append('Employee Details')
+
+    if missing_sections:
+        messages.error(request, 'You need to provide details for all sections')
+
+
+    application_exists = AGOAApplication.objects.filter(company=company).exists()
+
+
+    if request.method == 'POST':
+        
+        application = AGOAApplication.objects.create(company=company)
+        application.save()
+        messages.success(request, 'Application Done Successfully')
+        return redirect('review-application')
+            
+    context = {
+        'company': company,
+        'product': product,
+        'machinery': machinery,
+        'employee': employee,
+        'missing_sections': missing_sections,
+        'application_exists': application_exists
+    }
+
+    return render(request, 'application/review_application.html', context)
+
+def view_certificate(request):
+    try:
+        application = AGOAApplication.objects.get(company__user=request.user)
+
+    except AGOAApplication.DoesNotExist:
+        application = None
+
+    context = {
+        'application': application
+    }
+
+    return render(request, 'application/certificate_page.html', context)
+
+
+def download_certificate(request):
+    try:
+        application = AGOAApplication.objects.get(company__user = request.user)
+    except AGOAApplication.DoesNotExist:
+        application = None
+
+    html_string = render_to_string('application/certificate.html', {'application': application})
+    css_path = finders.find('css/cert.css')
+    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf(stylesheets=[CSS(css_path)])
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="AGOA_Certificate.pdf"'
+    return response

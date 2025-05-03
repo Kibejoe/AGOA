@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AGOA Certificate</title>
+    <link rel="stylesheet" href="{% static 'css/cert.css' %}">
+
+</head>
+<body>
+
+<div class="certificate-container">
+    <img src="{% static 'img/coat_of_arms.png' %}" alt="Kenya Coat of Arms" class="logo">
+
+    <div class="title">African Growth and Opportunity Act (AGOA)</div>
+    <div class="subtitle">Certificate of Eligibility</div>
+
+    <div class="content">
+        This certifies that
+        <div class="company-name">{{ application.company.name }}</div>
+        has been reviewed and approved by the Ministry of Investments, Trade and Industry
+        under the AGOA Export Program.
+        <br><br>
+        The company is eligible to export goods to the United States under AGOA, subject to
+        applicable rules and regulations.
+    </div>
+
+
+
+    <div class="signature">
+        <div class="sign-block">
+            <div class="sign-line"></div>
+            Authorized Officer
+        </div>
+
+        <div class="sign-block">
+            <div class="sign-line"></div>
+            Ministry Seal
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -18,6 +18,7 @@
                                 <i class="bi bi-clock-history me-2"></i> My Application History
                             </a>
                         </li>
+                        {% if application %}
                         <li class="nav-item">
                             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#companyProfileMenu" role="button" aria-expanded="false" aria-controls="companyProfileMenu">
                                 <span><i class="bi bi-building me-2"></i> Company Profile</span>
@@ -40,6 +41,8 @@
                                 </ul>
                             </div>
                         </li>
+
+                        {% else %}
                         
                         <li class="nav-item">
                             <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#certificateApplicationMenu" role="button" aria-expanded="false" aria-controls="certificateApplicationMenu">
@@ -61,8 +64,8 @@
                                         <a class="nav-link" href="{% url 'machinery-form' %}"><i class="bi bi-gear me-2"></i> Machinery Details</a>
                                     </li>
                                     <li class="nav-item mt-2">
-                                        <a class="nav-link text-success fw-bold" href="#">
-                                            <i class="bi bi-upload me-2"></i> Submit Application
+                                        <a class="nav-link text-success fw-bold" href="{% url 'review-application' %}">
+                                            <i class="bi bi-upload me-2"></i> Review Application
                                         </a>
                                     </li>
             
@@ -70,9 +73,10 @@
                             </div>
                         </li>                        
                         
+                        {% endif %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{% url 'view-certificate' %}">
                                 <i class="bi bi-file-earmark-check me-2"></i> My Certificates
                             </a>
                         </li>
@@ -96,7 +100,7 @@
                         <div class="card text-center shadow-sm">
                             <div class="card-body">
                                 <h5 class="card-title">Pending Applications</h5>
-                                <p class="card-text display-6 fw-bold text-primary">0</p> <!-- Replace with dynamic variable later -->
+                                <p class="card-text display-6 fw-bold text-primary">{{pending_count}}</p> <!-- Replace with dynamic variable later -->
                             </div>
                         </div>
                     </div>

@@ -5,10 +5,11 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">  <!-- Adjust width here -->
-        
+            {% include 'includes/alerts.html' %}
+
+            <h4 class="mb-4 text-primary text-center">Company Information</h4>        
             <form method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
                 {% csrf_token %}
-                <h4 class="mb-4 text-primary text-center">Company Information</h4>
 
                 {% for field in form %}
                     <div class="mb-3">
