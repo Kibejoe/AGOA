@@ -7,9 +7,6 @@
         <div class="col-md-8 col-lg-6">  <!-- Adjust width here -->
             
             {% include 'includes/alerts.html' %}
-
-            <h2 class="mb-4 text-center text-primary">Machinery Details</h2>
-
             <form action="{% url 'machinery-form' %}" method="post">
 
                 {% csrf_token %}

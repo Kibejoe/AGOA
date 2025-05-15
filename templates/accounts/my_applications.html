@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%} My applications {% endblock %}
+{% block content %}
+
+<div class="container">
+    <h3 class="text-center mt-5 text-primary">My Applications</h3>
+    {% if application %}
+    <table class="table table-striped table-hover mt-4 text-center">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>KRA PIN</th>
+                <th>Certificate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ company.name }}</td>
+                <td>{{ company.email }}</td>
+                <td>{{ company.address }}</td>
+                <td>{{ company.kra_pin }}</td>
+                <td>{{ application.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% else %}
+    <h2 class="text-center mt-5">You have not made any application yet</h2>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes
+from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model, authenticate, login, logout
@@ -146,7 +146,7 @@ def forgot_password(request):
 
 def reset_password(request, uidb64, token):
     try:
-        uid = force_bytes(urlsafe_base64_decode(uidb64))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         user = CustomUser.objects.get(pk=uid)
     except CustomUser.DoesNotExist:
         user = None
@@ -156,11 +156,17 @@ def reset_password(request, uidb64, token):
             form = ResetPasswordForm(request.POST)
 
             if form.is_valid():
-                password = form.cleaned_data.get('password')
-                user.set_password(password)
-                user.save()
-                messages.success(request, 'Password reset successfully')
-                return redirect('login')
+                new_password = form.cleaned_data.get('new_password')
+                confirm_password = form.cleaned_data.get('confirm_password')
+
+                if new_password == confirm_password:
+                    user.set_password(new_password)
+                    user.save()
+                    messages.success(request, 'Password reset successfully')
+                    return redirect('login')
+                
+                else:
+                    messages.error(request, 'Passwords do not match')
         
         else:
             form = ResetPasswordForm()
@@ -199,5 +205,22 @@ def dashboard(request):
     }
 
     return render(request, 'accounts/dashboard.html', context)
+
+@login_required
+def my_applications(request):
+    try:
+        company = CompanyDetails.objects.get(user=request.user)
+        application = AGOAApplication.objects.get(company=company)
+
+    except (CompanyDetails.DoesNotExist, AGOAApplication.DoesNotExist):
+        company = None
+        application = None
+        
+
+    context = {
+        'company': company,
+        'application': application
+    }
+    return render(request, 'accounts/my_applications.html', context)
 
 

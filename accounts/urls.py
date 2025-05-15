@@ -8,5 +8,6 @@ urlpatterns=[
     path('logout/', views.logout_view, name='logout'),
     path('forgot-password/', views.forgot_password, name='forgot-password'),
     path('reset-password/<uidb64>/<token>/', views.reset_password, name='reset-password'),
-    path('dashboard/', views.dashboard, name='dashboard')
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('my-applications/', views.my_applications, name='my-applications'),
 ]

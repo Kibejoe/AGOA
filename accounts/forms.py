@@ -42,7 +42,7 @@ class RegistrationForm(forms.ModelForm):
         email = self.cleaned_data.get('email')
 
         if CustomUser.objects.get(email=email).exists():
-            raise ValidationError('User with this email already exists')
+            raise forms.ValidationError('User with this email already exists')
         
         return email
     
@@ -75,14 +75,6 @@ class ResetPasswordForm(forms.Form):
         'class': 'form-control'
     }))
 
-    def clean(self):
-        cleaned_data = super().clean()
-
-        new_password = cleaned_data.get('new_password')
-        confirm_password = cleaned_data.get('confirm_password')
-
-        if new_password != confirm_password:
-            raise ValueError('Passwords do not match')
         
 
         

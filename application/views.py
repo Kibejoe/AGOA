@@ -23,7 +23,7 @@ def company_form(request):
             company_form = form.save(commit=False)
             company_form.user = request.user
             company_form.save()
-            messages.success('Company details filled in successfully')
+            messages.success(request, 'Company details filled in successfully')
             return redirect('product-form')
         
     else:
@@ -124,38 +124,16 @@ def machinery_form(request):
 
 def review_application(request):
 
-    company = CompanyDetails.objects.get(user=request.user)
-
     try:
+        company = CompanyDetails.objects.get(user=request.user)
         product = Product.objects.get(company=company)
-    except Product.DoesNotExist:
-        product = None
-
-    try:
         machinery = Machinery.objects.get(company=company)
-    except Machinery.DoesNotExist:
-        machinery = None
-
-    try:
         employee = Employee.objects.get(company=company)
-    except Employee.DoesNotExist:
-        employee = None
 
-    missing_sections = []
-
-    if not company:
-        missing_sections.append('Company Details')
-    if not product:
-        missing_sections.append('Product Details')
-    if not machinery:
-        missing_sections.append('Machinery Details')
-    if not employee:
-        missing_sections.append('Employee Details')
-
-    if missing_sections:
-        messages.error(request, 'You need to provide details for all sections')
-
-
+    except (CompanyDetails.DoesNotExist, Product.DoesNotExist, Machinery.DoesNotExist, Employee.DoesNotExist):
+        messages.error(request, 'You need to fill in all the sections')
+        return redirect('dashboard')
+    
     application_exists = AGOAApplication.objects.filter(company=company).exists()
 
 
@@ -171,7 +149,6 @@ def review_application(request):
         'product': product,
         'machinery': machinery,
         'employee': employee,
-        'missing_sections': missing_sections,
         'application_exists': application_exists
     }
 
