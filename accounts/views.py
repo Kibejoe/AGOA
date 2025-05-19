@@ -73,7 +73,7 @@ def register_activate(request, uidb64, token):
         user.is_active=True
         user.save()
 
-        return redirect('register')
+        return redirect('login')
 
 
 def login_view(request):
@@ -113,9 +113,8 @@ def forgot_password(request):
         form = ForgotPasswordForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
-            user = CustomUser.objects.get(email=email)
-
-            if user:
+            try:
+                user = CustomUser.objects.get(email=email)
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 token = default_token_generator.make_token(user)
                 reset_url = request.build_absolute_uri(reverse('reset-password', args=[uid, token]))
@@ -134,10 +133,9 @@ def forgot_password(request):
                 messages.success(request, 'Reset password from your email')
                 return redirect('forgot-password')
 
-            else:
+            except CustomUser.DoesNotExist:
                 messages.error(request, 'User with that email does not exist')
                 return redirect('forgot-password')
-            
 
     else:
         form = ForgotPasswordForm()
