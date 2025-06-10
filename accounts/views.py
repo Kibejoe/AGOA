@@ -11,7 +11,7 @@ from django.conf import settings
 
 from .forms import RegistrationForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 from django.contrib import messages
-from application.models import CompanyDetails,AGOAApplication
+from application.models import CompanyDetails, Product, Employee, Machinery, AGOAApplication
 
 
 CustomUser = get_user_model()
@@ -20,13 +20,15 @@ CustomUser = get_user_model()
 def register(request):
 
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(request.POST, request.FILES)
 
         if form.is_valid():
             firstname = form.cleaned_data.get('firstname')
             lastname = form.cleaned_data.get('lastname')
             email = form.cleaned_data.get('email')
             phone = form.cleaned_data.get('phone')
+            id_file = form.cleaned_data.get('id_file')  # <--- get the uploaded file
+
             password = form.cleaned_data.get('password')
 
             user = CustomUser.objects.create_user(
@@ -35,6 +37,7 @@ def register(request):
                 email=email,
                 phone=phone,
                 password=password,
+                id_file = id_file
             )
 
             uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -188,37 +191,42 @@ def dashboard(request):
 
     try:
 
-        company = CompanyDetails.objects.get(user=request.user)
-        pending_count = AGOAApplication.objects.filter(company=company, status='pending').count()
-        application = AGOAApplication.objects.filter(company=company)
+        companies = CompanyDetails.objects.filter(user=request.user)
+        # total_companies = companies.count()
+        # companies_with_apps = AGOAApplication.objects.filter(company__in=companies).count()
+        # has_applications = total_companies > 0 and total_companies == companies_with_apps
 
-    except CompanyDetails.DoesNotExist:
-        company = None
-        pending_count = 0
-        application = None
+    except (CompanyDetails.DoesNotExist):
+        companies = None
+        # has_applications = False
+        
 
     context = {
-        'pending_count': pending_count,
-        'application': application
+        'companies': companies,
+        'has_company': companies.exists(),
+        'has_products': Product.objects.filter(company__in=companies).exists(),
+        'has_employees': Employee.objects.filter(company__in=companies).exists(),
+        'has_machinery': Machinery.objects.filter(company__in=companies).exists(),
     }
 
     return render(request, 'accounts/dashboard.html', context)
 
-@login_required
+
 def my_applications(request):
     try:
-        company = CompanyDetails.objects.get(user=request.user)
-        application = AGOAApplication.objects.get(company=company)
+        companies = CompanyDetails.objects.filter(user=request.user)
+        applications = AGOAApplication.objects.filter(company__in=companies)
 
     except (CompanyDetails.DoesNotExist, AGOAApplication.DoesNotExist):
-        company = None
-        application = None
+        companies = None
+        applications = None
         
 
     context = {
-        'company': company,
-        'application': application
+        'applications': applications
     }
     return render(request, 'accounts/my_applications.html', context)
+
+
 
 

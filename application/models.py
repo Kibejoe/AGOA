@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+import string
+import random
+from django.utils import timezone
 
 CustomUser = get_user_model()
 
@@ -74,7 +77,7 @@ class Product(models.Model):
 
         
 class Machinery(models.Model):
-    company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='machinery_details', null=True)
+    company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='machinery_details')
 
     # Cutting section
     cutting_machines = models.IntegerField(null=True, blank=True)
@@ -130,11 +133,18 @@ class Machinery(models.Model):
     # Health facility
     inhouse_clinic = models.BooleanField(default=False)
 
-    # Totals
-    total_machines = models.IntegerField(null=True, blank=True)
+
+    @property
+    def total_machines(self):
+        exclude_fields = ['id', 'company', 'inhouse_clinic', 'total_machines']
+        return sum(
+            getattr(self, field.name) or 0
+            for field in self._meta.fields
+            if field.name not in exclude_fields and isinstance(field, models.IntegerField)
+        )
 
     def __str__(self):
-        return f"Facility Detail for {self.company.name}"
+        return f"Machinery Detail for {self.company.name}"
 
     class Meta:
         verbose_name = 'Machinery'
@@ -144,7 +154,7 @@ class Machinery(models.Model):
     
 class Employee(models.Model):
 
-    company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='employees', null=True)
+    company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='employees')
 
     # Administrative & directors
 
@@ -181,12 +191,23 @@ class Employee(models.Model):
     sampling_stitchers= models.IntegerField(null=True)				
     sampling_supervisors = models.IntegerField(null=True)
 
+    @property
+    def employee_count(self):
+        exclude_fields = ['id', 'company']
+
+        return sum(
+            getattr(self, field.name) or 0
+            for field in self._meta.fields
+            if field.name not in exclude_fields and isinstance(field, models.IntegerField)
+        )
+
     class Meta:
         verbose_name = 'Employee'
         verbose_name_plural = 'Employees'
 
-    def __str__(self):
-        return f"{self.company.name}"
+
+
+    
 
 
 class AGOAApplication(models.Model):
@@ -196,10 +217,13 @@ class AGOAApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
 
-    company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='applications', null=True)
+    company = models.OneToOneField(CompanyDetails, on_delete=models.CASCADE, related_name='application')
     submitted_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
-    certificate_file = models.FileField(upload_to='media/certificates',blank=True, null=True)
+    application_number = models.CharField(max_length=20, unique=True, blank=True)
+    comments = models.TextField(blank=True, null=True)
+
+
 
     class Meta:
         verbose_name='AGOAApplication'
@@ -208,3 +232,19 @@ class AGOAApplication(models.Model):
 
     def __str__(self):
         return f"{self.company.name} - {self.status} ({self.submitted_at.date()})"
+    
+
+    def save(self, *args, **kwargs):
+        if not self.application_number:
+            self.application_number = self.generate_application_number()
+        super().save(*args, **kwargs)
+
+    def generate_application_number(self):
+        while True:
+            # Example format: AGOA-XYZ123
+            prefix = 'AGOA'
+            suffix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+            application_number = f"{prefix}-{suffix}"
+            if not AGOAApplication.objects.filter(application_number=application_number).exists():
+                return application_number
+

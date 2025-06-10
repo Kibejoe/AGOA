@@ -13,7 +13,7 @@
           <article class="card-body">
             {% include 'includes/alerts.html' %}
             <header class="mb-4 text-center"><h4 class="card-title">Sign up</h4></header>
-            <form action="{% url 'register' %}" method="post">
+            <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
 
 
               {% csrf_token %}

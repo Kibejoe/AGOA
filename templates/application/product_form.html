@@ -9,6 +9,10 @@
             {% include 'includes/alerts.html' %}
             <h4 class="mb-4 text-primary text-center">Add Product</h4>
 
+            <p class="mb-4 text-center text-muted small">
+                <em>Ensure you provide details for <strong>all products</strong> by your company to be eligible for approval after inspection.</em>
+            </p>
+
 
             <form method="post" class="bg-white p-5 rounded shadow-sm" enctype="multipart/form-data">
                 {% csrf_token %}

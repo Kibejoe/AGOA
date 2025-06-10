@@ -1,106 +1,91 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Review Application{% endblock %}
-{% block content %}
-<div class="container mt-4" style="max-width: 800px;">
+{% block title %}Review Applications{% endblock %}
 
+{% block content %}
+<div class="container my-5">
     {% include 'includes/alerts.html' %}
 
 
-    {% if missing_sections %}
-        <div class="alert alert-warning mt-3">
-            <strong>Incomplete Application!</strong><br>
-            You still need to fill the following sections:
-            <ul>
-                {% for section in missing_sections %}
-                    <li>{{ section }}</li>
-                {% endfor %}
-            </ul>
-            <p class="mt-2">Please complete them before submitting your application.</p>
+    {% if company_data %}
+
+    <h2 class="text-center mb-4">Application Overview</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle shadow-sm">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Company</th>
+                        <th>Products</th>
+                        <th>Total Employees</th>
+                        <th>Total Machinery</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in company_data %}
+                        <tr>
+                            <!-- Company -->
+                            <td>
+                                <strong>{{ item.company.name }}</strong><br>
+                                <small>{{ item.company.email }}</small><br>
+                                <small>{{ item.company.address }}</small><br>
+                            </td>
+
+                            <!-- Products -->
+                            <td>
+                                {% for product in item.products %}
+                                    <div class="text-center fw-200">{{ product.name }} <small class="text-muted">({{ product.production_quantity_per_month }} pcs/mo)</small></div>
+                                {% empty %}
+                                    <em class="text-muted">No products</em>
+                                {% endfor %}
+                            </td>
+
+                            <!-- Employees -->
+                            <td class="text-center">
+                                {{ item.employee_total }}
+                            </td>
+
+                            <!-- Machinery -->
+                            <td class="text-center">
+                                {{ item.machinery_total }}
+                            </td>
+
+                            <!-- Submit Button -->
+                            <td class="text-center">
+                                {% if item.application_exists %}
+                                    <span class="badge bg-success">Submitted</span>
+
+                                {% elif item.missing_sections %}
+                                    <span class="badge bg-warning text-dark">Incomplete</span>
+                                    <div class="small text-muted">
+                                        Missing: {{ item.missing_sections|join:", " }}
+                                    </div>
+
+                                {% else %}
+                                    <form method="post" action="{% url 'review-application' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="company_id" value="{{ item.company.id }}">
+                                        <button type="submit" class="btn btn-sm btn-success">Apply</button>
+                                    </form>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endif %}
-    
-    {% if application_exists %}
-        <h2 class="text-center">You already applied. Please await Inspection</h2>
+    {% elif all_submitted %}
+
+        <h3 class="text-muted text-center mt-5">Your application has been received successfully. <br> Please await inspection.</h3>
+
     {% else %}
-        <h2 class="text-center">Review Submitted Details Before Applying</h2>
-        <h3 class="text-center mt-5 text-primary">Company Summary</h3>
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>KRA PIN</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ company.name }}</td>
-                    <td>{{ company.email }}</td>
-                    <td>{{ company.address }}</td>
-                    <td>{{ company.kra_pin }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3 class="text-center mt-5 text-primary">Product Summary</h3>
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Production Quantity (pcs/month)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.production_quantity_per_month }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3 class="text-center mt-5 text-primary">Machinery Summary</h3>
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Cutting Machines</th>
-                    <!-- Add more machinery headers if needed -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ machinery.cutting_machines }}</td>
-                    <!-- Add more machinery values if needed -->
-                </tr>
-            </tbody>
-        </table>
-
-        <h3 class="text-center mt-5 text-primary">Employees Summary</h3>
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Administrative Staff</th>
-                    <!-- Add more employee headers if needed -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ employee.administrative_staff }}</td>
-                    <!-- Add more employee values if needed -->
-                </tr>
-            </tbody>
-        </table>
-
-        <form method="post" action="{% url 'review-application' %}" class="mt-4">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success">Confirm & Submit Application</button>
-        </form>
-
+    <h2 class="text-center text-muted mt-5">Please fill in company data.</h2>
     {% endif %}
 </div>
 {% endblock %}
 
 {% block script_files %}
-<script src="{% static 'js/alerts.js' %}"></script>
+    <script src="{% static 'js/alerts.js' %}"></script>
 {% endblock %}

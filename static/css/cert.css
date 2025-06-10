@@ -1,33 +1,21 @@
+
 body {
     font-family: "Times New Roman", Times, serif;
     background: #f9f9f9;
-    padding: 50px;
+    padding: 10px;
 }
 .certificate-container {
-    width: 120%; /* Use a percentage instead of a fixed width */
+    width: 1200px; /* Or use max-width: 100%; if needed */
+    max-width: 100%;
     margin: auto;
     background: white;
     text-align: center;
     padding: 40px;
     position: relative;
-    border: 20px solid green;
     box-sizing: border-box;
 }
 
-.certificate-container::before {
-    content: "";
-    position: absolute;
-    top: 10px; bottom: 10px; left: 10px; right: 10px;
-    border: 10px solid red; /* Middle red */
-    pointer-events: none;
-}
-.certificate-container::after {
-    content: "";
-    position: absolute;
-    top: 30px; bottom: 30px; left: 30px; right: 30px;
-    border: 5px solid black; /* Inner black */
-    pointer-events: none;
-}
+
 .logo {
     width: 100px;  /* Ensure the logo fits nicely within the container */
     max-width: 100%;
@@ -50,31 +38,51 @@ body {
     line-height: 1.8;
     color: #333;
 }
+
+
+.certificate-number {
+    text-align: right;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    padding-right: 1rem;
+    color: #444;
+}
+
 .company-name {
-    font-size: 26px;
+    color: #006400; /* DarkGreen */
     font-weight: bold;
-    color: #0a0a23;
-    margin-top: 20px;
+    font-size: 2rem;
 }
-.footer {
-    margin-top: 80px;
-    text-align: left;
-    font-size: 16px;
-    color: #555;
-}
+
+
 .signature {
     margin-top: 60px;
     display: flex;
-    justify-content: space-between;
-    padding: 0 50px;
+    justify-content: space-evenly;
+    gap: 40px; /* Optional: adds spacing between blocks */
+    flex-wrap: wrap; /* Allows wrap if space is limited */
+    padding: 0 20px;
 }
 .sign-block {
+    flex: 1;
+    max-width: 300px;
     text-align: center;
 }
+
 .sign-line {
     margin-top: 50px;
     border-top: 1px solid #000;
     width: 200px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.qr-code {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 20px auto;
+    object-fit: contain;
+
 }

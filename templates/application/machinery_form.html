@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} Machinery Info {% endblock %}
 {% block content %}
 
@@ -11,6 +12,10 @@
 
                 {% csrf_token %}
                 <h2 class="mb-4 text-center text-primary">Machinery Details</h2>
+                
+                <div class="mb-3">
+                    {{ form.company }}
+                </div>
 
                 <div class="accordion" id="machineryAccordion">
         
@@ -163,4 +168,8 @@
 
 </div>
 
+{% endblock %}
+
+{% block script_files %}
+<script src="{% static 'js/alerts.js' %}"></script>
 {% endblock %}

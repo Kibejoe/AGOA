@@ -22,7 +22,10 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['firstname', 'lastname', 'email', 'phone', 'password']
+        fields = ['firstname', 'lastname', 'email', 'phone', 'id_file', 'password']
+        labels = {
+            'id_file': 'Staff Identifier'
+        }
 
 
     def __init__(self, *args, **kwargs):

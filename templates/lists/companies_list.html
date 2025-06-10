@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Review Applications{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    {% include 'includes/alerts.html' %}
+
+    <h2 class="text-center mb-4">Companies Overview</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle shadow-sm">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>KRA PIN</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in companies %}
+                        <tr>
+                            <!-- Company -->
+                            <td>
+                                <strong>{{ company.name }}</strong><br>
+                            </td>
+                            <td>
+                                <small>{{ company.email }}</small><br>
+                            </td>
+                            <td>
+                                <small>{{ company.address }}</small><br>
+                            </td>
+                            <td>
+                                <small>{{ company.kra_pin }}</small><br>
+                            </td>
+
+                            <td class="text-center">
+                            <a href="{% url 'company-edit' company.id %}" class="btn btn-sm btn-success">
+                                Edit
+                            </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+</div>
+{% endblock %}
+
+{% block script_files %}
+    <script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}

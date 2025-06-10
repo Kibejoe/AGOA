@@ -5,9 +5,8 @@
 
 {% block content %}
 
-<body class="index-page">
 
-  <main class="main">
+<main class="main">
 
     <!-- Hero Section -->
     <section id="hero" class="hero section">
@@ -16,7 +15,8 @@
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
             <h1>Empowering Kenyan Exporters through AGOA</h1>
-            <p class="mt-5">We support local businesses in accessing U.S. markets under the African Growth and Opportunity Act (AGOA).</p>
+            <p class="mt-5 text-justify">We support local businesses in accessing U.S. markets under the African Growth and Opportunity Act (AGOA). 
+              Make an application with us through the dashboard section</p>
 
             {% if not user.is_authenticated %}
             <div class="d-flex">
@@ -43,7 +43,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>ABOUT US</h2>
-        <p>The African Growth and Opportunity Act (AGOA) is a U.S. government program aimed at enhancing trade and investment between the U.S. and sub-Saharan Africa.</p>
+        <p class="p-3">The African Growth and Opportunity Act (AGOA) is a U.S. government program aimed at enhancing trade and investment between the U.S. and sub-Saharan Africa.</p>
       </div><!-- End Section Title -->
     
       <div class="container">
@@ -74,88 +74,48 @@
 
     {% endif %}
     
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
+<section id="contact" class="contact section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Contact</h2>
+  </div>
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Please contact us in the following address or write us a quick message so we get back to you soon</p>
-      </div><!-- End Section Title -->
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-5">
-
-            <div class="info-wrap">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <p>info@example.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+        <div class="info-wrap p-4 shadow rounded-4 bg-white">
+          <!-- Address -->
+          <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="200">
+            <i class="bi bi-geo-alt flex-shrink-0 fs-3 text-primary me-3"></i>
+            <div>
+              <h5 class="mb-1">Address</h5>
+              <p class="mb-0">Social Security House, Block A, UpperHill</p>
             </div>
           </div>
 
-          <div class="col-lg-7">
-            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
+          <!-- Phone -->
+          <div class="info-item d-flex mb-4" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-telephone flex-shrink-0 fs-3 text-primary me-3"></i>
+            <div>
+              <h5 class="mb-1">Call Us</h5>
+              <p class="mb-0">+254 20-2731531</p>
+            </div>
+          </div>
 
-                <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Your Name</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
-                </div>
-
-                <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Message</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
+          <!-- Email -->
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-envelope flex-shrink-0 fs-3 text-primary me-3"></i>
+            <div>
+              <h5 class="mb-1">Email Us</h5>
+              <p class="mb-0">ps@industrialization.go.ke</p>
+            </div>
+          </div>
         </div>
 
       </div>
-
-    </section><!-- /Contact Section -->
+    </div>
+  </div>
+</section>
 
   </main>
   <!-- Scroll Top -->
@@ -167,9 +127,8 @@
   
   {% include 'includes/footer.html' %}
 
-</body>
 {% endblock %}
 
-{% block script_files%}
-<script src="{% static 'js/index.js' %}"></script>
+{% block script_files %}
+  <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

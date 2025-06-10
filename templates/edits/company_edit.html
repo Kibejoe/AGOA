@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+            <article class="card-body">
+                {% include 'includes/alerts.html' %}
+                <header class="mb-4 text-center">
+                    <h4 class="card-title text-primary">Edit Company Details</h4>
+                </header>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group mb-4">
+                            <label class="form-label fw-semibold text-dark">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+
+                    <div class="form-group d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-sm">Cancel</a>
+                    </div>
+                </form>
+            </article><!-- card-body.// -->
+        </div> <!-- card .// -->
+        <br><br>
+    </div>
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}
+
+{% block script_files %}
+<script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}

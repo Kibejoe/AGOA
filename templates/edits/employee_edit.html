@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %} Employee Info {% endblock%}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">  <!-- Adjust width here -->
+            {% include 'includes/alerts.html' %}
+
+            <h2 class="mb-4 text-center text-primary">Edit Staff Information</h2>
+
+            <form method="post">
+
+                {% csrf_token %}
+                
+
+                <div class="accordion" id="staffAccordion">
+            
+                    <!-- Office & Admin -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAdmin">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdmin">
+                                Office & Administrative Staff + Directors
+                            </button>
+                        </h2>
+                        <div id="collapseAdmin" class="accordion-collapse collapse show" data-bs-parent="#staffAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead class="table-light">
+                                        <tr><th>Position</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{form.administrative_staff.label}}</td> <td>{{form.administrative_staff}}</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCutting">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCutting">
+                                Cutting Department
+                            </button>
+                        </h2>
+                        <div id="collapseCutting" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead class="table-light">
+                                        <tr><th>Position</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{ form.cutting_cutters.label }}</td><td>{{ form.cutting_cutters }}</td></tr>
+                                        <tr><td>{{ form.cutting_spreaders.label }}</td><td>{{ form.cutting_spreaders }}</td></tr>
+                                        <tr><td>{{ form.cutting_supervisors.label }}</td><td>{{ form.cutting_supervisors }}</td></tr>
+                                        <tr><td>{{ form.cutting_assistants.label }}</td><td>{{ form.cutting_assistants }}</td></tr>
+                                        <tr><td>{{ form.cutting_helpers.label }}</td><td>{{ form.cutting_helpers }}</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+            
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingProduction">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProduction">
+                                Production Lines
+                            </button>
+                        </h2>
+                        <div id="collapseProduction" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead class="table-light">
+                                        <tr><th>Position</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{ form.production_supervisors.label }}</td><td>{{ form.production_supervisors }}</td></tr>
+                                        <tr><td>{{ form.production_stitchers.label }}</td><td>{{ form.production_stitchers }}</td></tr>
+                                        <tr><td>{{ form.production_line_checkers.label }}</td><td>{{ form.production_line_checkers }}</td></tr>
+                                        <tr><td>{{ form.production_packers.label }}</td><td>{{ form.production_packers }}</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinishing">
+                                Finishing Department
+                            </button>
+                        </h2>
+                        <div id="collapseFinishing" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead class="table-light">
+                                        <tr><th>Position</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{ form.finishing_supervisors.label }}</td><td>{{ form.finishing_supervisors }}</td></tr>
+                                        <tr><td>{{ form.finishing_stitchers.label }}</td><td>{{ form.finishing_stitchers }}</td></tr>
+                                        <tr><td>{{ form.finishing_checkers.label }}</td><td>{{ form.finishing_checkers }}</td></tr>
+                                        <tr><td>{{ form.finishing_helpers.label }}</td><td>{{ form.finishing_helpers }}</td></tr>
+                                        <tr><td>{{ form.finishing_pressing.label }}</td><td>{{ form.finishing_pressing }}</td></tr>
+                                        <tr><td>{{ form.finishing_packing.label }}</td><td>{{ form.finishing_packing }}</td></tr>
+                                        <tr><td>{{ form.finishing_final_inspector.label }}</td><td>{{ form.finishing_final_inspector }}</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSampling">
+                                Sampling Department
+                            </button>
+                        </h2>
+                        <div id="collapseSampling" class="accordion-collapse collapse" data-bs-parent="#staffAccordion">
+                            <div class="accordion-body">
+                                <table class="table">
+                                    <thead class="table-light">
+                                        <tr><th>Position</th><th>No.</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>{{ form.sampling_pattern_makers.label }}</td><td>{{ form.sampling_pattern_makers }}</td></tr>
+                                        <tr><td>{{ form.sampling_stitchers.label }}</td><td>{{ form.sampling_stitchers }}</td></tr>
+                                        <tr><td>{{ form.sampling_supervisors.label }}</td><td>{{ form.sampling_supervisors }}</td></tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-sm">Cancel</a>
+                    </div>
+
+            </form>
+
+        
+
+        </div>
+    
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script_files %}
+<script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}

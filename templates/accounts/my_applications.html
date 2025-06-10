@@ -1,34 +1,85 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title%} My applications {% endblock %}
-{% block content %}
+{% block title %}My applications{% endblock %}
 
+{% block content %}
 <div class="container">
     <h3 class="text-center mt-5 text-primary">My Applications</h3>
-    {% if application %}
-    <table class="table table-striped table-hover mt-4 text-center">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>KRA PIN</th>
-                <th>Certificate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ company.name }}</td>
-                <td>{{ company.email }}</td>
-                <td>{{ company.address }}</td>
-                <td>{{ company.kra_pin }}</td>
-                <td>{{ application.status }}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    {% if applications %}
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover text-center align-middle shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>KRA PIN</th>
+                    <th>Application</th>
+                    <th>Certificate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                <tr>
+                    <td>{{ application.company.name }}</td>
+                    <td>{{ application.company.email }}</td>
+                    <td>{{ application.company.address }}</td>
+                    <td>{{ application.company.kra_pin }}</td>
+                    <td>{{ application.status }}</td>
+                    <td>
+                        {% if application.status == 'approved' %}
+                            <form action="{% url 'download-certificate' application.company.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Download</button>
+                            </form>
+                        {% elif application.status == 'pending' %}
+                            <span class="text-muted">Not issued</span>
+                        {% elif application.status == 'rejected' %}
+                            <span class="text-danger">Rejected</span>
+                            {% if application.comments %}
+                                <span
+                                    role="button"
+                                    class="badge rounded-pill bg-danger text-white ms-2"
+                                    style="cursor: pointer;"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#reasonModal{{ application.id }}"
+                                >
+                                    View Reason
+                                </span>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Rejection Reason Modals -->
+    {% for application in applications %}
+        {% if application.status == 'rejected' and application.comments %}
+        <div class="modal fade" id="reasonModal{{ application.id }}" tabindex="-1" aria-labelledby="reasonModalLabel{{ application.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content shadow">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="reasonModalLabel{{ application.id }}">Rejection Reason</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ application.comments|linebreaks }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+
     {% else %}
     <h2 class="text-center mt-5">You have not made any application yet</h2>
     {% endif %}
 </div>
-
 {% endblock %}

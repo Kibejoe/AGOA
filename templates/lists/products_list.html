@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Review Applications{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    {% include 'includes/alerts.html' %}
+
+    <h2 class="text-center mb-4">Products Overview</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle shadow-sm">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>SITC code</th>
+                        <th>Product</th>
+                        <th>Company</th>
+                        <th>Category</th>
+                        <th>Production</th>                        
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <!-- Company -->
+                            <td>
+                                <strong>{{ product.sitc_code }}</strong><br>
+                            </td>
+                            <td>
+                                <small>{{ product.name }}</small><br>
+                            </td>
+                            <td>
+                                <small>{{ product.company }}</small><br>
+                            </td>
+                            <td>
+                                <small>{{ product.category }}</small><br>
+                            </td>
+                            <td>
+                                <small>{{ product.production_quantity_per_month }}</small><br>
+                            </td>
+
+                            <td class="text-center">
+                            <a href="{% url 'product-edit' product.company.id product.id %}" class="btn btn-sm btn-success">
+                                Edit
+                            </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+</div>
+{% endblock %}
+
+{% block script_files %}
+    <script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}

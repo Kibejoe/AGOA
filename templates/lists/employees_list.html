@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Review Applications{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    {% include 'includes/alerts.html' %}
+
+    <h2 class="text-center mb-4">Employees Overview</h2>
+
+    <div class="table-responsive d-flex justify-content-center">
+        <table class="table table-bordered table-hover align-middle shadow-sm text-center" style="max-width: 800px; font-size: 0.9rem;">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 40%;">Company</th>
+                    <th style="width: 30%;">Employee Number</th>
+                    <th style="width: 30%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                    <tr>
+                        <td>
+                            <strong>{{ employee.company.name }}</strong>
+                        </td>
+                        <td>
+                            {{ employee.employee_count }}
+                        </td>
+                        <td>
+                            <a href="{% url 'employee-edit' employee.company.id employee.id %}" class="btn btn-sm btn-success">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-muted">No employee data available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block script_files %}
+    <script src="{% static 'js/alerts.js' %}"></script>
+{% endblock %}
